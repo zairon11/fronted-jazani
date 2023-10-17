@@ -1,63 +1,67 @@
-import { useEffect, useState } from "react"
-import { type PeriocityResponse } from "../../domain";
-import { findAll } from "../../infrastructure/PersonaRepository"
+import { useState, useEffect } from 'react';
 import Table from 'react-bootstrap/Table';
-import Badge from 'react-bootstrap/Badge';
+
+import { PersonaTypeRepository} from '../../infrastructure';
+import { type PersonaResponse } from '../../domain';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Card from 'react-bootstrap/Card';
+import Badge from 'react-bootstrap/Badge';
+import { Card } from 'react-bootstrap';
 
 
 const index = (): JSX.Element => {
+	
+	const [mineralTypes, mineralTypesSet] = useState<PersonaResponse[]>([]);
 
-  const [personas, setPersonas] = useState<PeriocityResponse[]>()
+	useEffect(() => {
+		void loadMineralTypes();
+	}, []);
 
-  useEffect(() => {
-    findAll().then(({ data }) => {
-      setPersonas(data)
-    }).catch((error) => {
-      console.log(error)
-    })
-  }, [])
+	const loadMineralTypes = async (): Promise<void> => {
+		const response = await PersonaTypeRepository.findAll();
 
-  return (
-    <>
-      <Row className="pt-2">
-        <Col xs={12}>
-          <Card>
-            <Card.Header>Listado de Periocities</Card.Header>
-            <Card.Body>
-              <Table striped bordered hover>
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>Nombre</th>
-                    <th>Descripcion</th>
-                    <th>Estado</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {
-                    personas?.map(persona => (
-                      <tr key={persona.id}>
-                        <td>{persona.id}</td>
-                        <td>{persona.name}</td>
-                        <td>{persona.description}</td>
-                        <td>
-                          <Badge pill bg={persona.state ? 'success' : 'danger'}>
-                            {persona.state ? 'Activo' : 'Eliminado'}
-                          </Badge>
-                        </td>
-                      </tr>
-                    ))}
-                </tbody>
-              </Table>
-            </Card.Body>
-          </Card>
-        </Col>
-      </Row>
-    </>
-  )
-}
+		mineralTypesSet(response.data);
+		console.log('response: ', response);
+	};
 
-export default index
+	return (
+		<>
+			<Row className="pt-2">
+				<Col xs={12}>
+					<Card>
+						<Card.Header>Listado de personas</Card.Header>
+						<Card.Body>
+							<Table striped bordered hover>
+								<thead>
+									<tr>
+										<th>#</th>
+										<th>Nombre</th>
+										<th>Descripcion</th>
+										<th>Estado</th>
+									</tr>
+								</thead>
+								<tbody>
+									{mineralTypes.length > 0 &&
+										mineralTypes.map(mineralType => (
+											<tr key={mineralType.id}>
+												<td>{mineralType.id}</td>
+												<td>{mineralType.name}</td>
+												<td>{mineralType.description}</td>
+												<td>
+													<Badge pill bg={mineralType.state ? 'success' : 'danger'}>
+														{mineralType.state ? 'Activo' : 'Elminado'}
+													</Badge>
+												</td>
+											</tr>
+										))}
+								</tbody>
+							</Table>
+						</Card.Body>
+					</Card>
+				</Col>
+			</Row>
+		</>
+	);
+};
+
+export default index;

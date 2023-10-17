@@ -15,7 +15,7 @@ export const Menu = (): JSX.Element => {
             <Nav.Link href="/">Home</Nav.Link>
             <NavDropdown title="Admins" id="basic-nav-dropdown">
               <Link className="dropdown-item" to="personas">
-                Personas
+                personas
               </Link>
             </NavDropdown>
           </Nav>

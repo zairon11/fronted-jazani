@@ -1,3 +1,3 @@
-import * as MineralTypeRepository from './PersonaRepository';
+import * as PersonaTypeRepository from './PersonaRepository';
 
-export { MineralTypeRepository };
+export { PersonaTypeRepository };

@@ -1,6 +1,5 @@
 import axios, { type AxiosResponse } from 'axios';
-import { type PeriocityResponse } from '../domain';
+import { type PersonaResponse } from '../domain';
 
-export const findAll = async (): Promise<AxiosResponse<PeriocityResponse[]>> => {
-	return await axios.get<PeriocityResponse[]>('https://localhost:7047/swagger/index.html');
-};
+export const findAll = async (): Promise<AxiosResponse<PersonaResponse[]>> =>
+	await axios.get<PersonaResponse[]>('https://localhost:7047/api/Persona');
