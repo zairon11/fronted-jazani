@@ -1,7 +1,12 @@
-const Auth = (): JSX.Element => {
-    return (
-      <div>Autho</div>
-    )
-  }
+import { Outlet } from 'react-router-dom';
+import { Container } from 'react-bootstrap';
 
-  export default Auth
+const Auth = (): JSX.Element => {
+	return (
+		<Container>
+			<Outlet />
+		</Container>
+	);
+};
+
+export default Auth;
