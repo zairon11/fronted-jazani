@@ -27,7 +27,7 @@ const index = (): JSX.Element => {
 			<Row className="pt-2">
 				<Col xs={12}>
 					<Card>
-						<Card.Header>Listado de Tipo de Minerales</Card.Header>
+						<Card.Header>Listado de Tipo de personas</Card.Header>
 						<Card.Body>
 							<Table striped bordered hover>
 								<thead>

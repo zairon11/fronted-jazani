@@ -9,6 +9,7 @@ import * as Yup from 'yup';
 
 import { type LoginRequest, type UserSecurityResponse } from '@/auth/login/domain';
 import useLogin from '@/auth/login/application/hooks/useLogin';
+import { LocalStorageSession } from '@/core/sessions';
 
 const index = (): JSX.Element => {
 	// formik inciando valores del formulario
@@ -37,6 +38,7 @@ const index = (): JSX.Element => {
 	const loginAuth = async (payload: LoginRequest): Promise<void> => {
 		const response: UserSecurityResponse = await mutateAsync(payload);
 		console.log('Logi: ', response);
+		LocalStorageSession.saveAuthorization(response);
 	};
 
 	// formulario
