@@ -12,19 +12,16 @@ import useLogin from '@/auth/login/application/hooks/useLogin';
 import { LocalStorageSession } from '@/core/sessions';
 
 const index = (): JSX.Element => {
-	// formik inciando valores del formulario
+	// Attributes
 	const formik = useFormik<LoginRequest>({
 		initialValues: {
 			email: '',
 			password: '',
 		},
-
-		//  validando el formulario con yup
 		validationSchema: Yup.object({
 			email: Yup.string().email('Ingrese un email valido').required('Email es requerido'),
 			password: Yup.string().required('Password es requerido'),
 		}),
-
 		onSubmit: (values: LoginRequest) => {
 			console.log('Values: ', values);
 			void loginAuth(values);
@@ -37,11 +34,12 @@ const index = (): JSX.Element => {
 	// Methods
 	const loginAuth = async (payload: LoginRequest): Promise<void> => {
 		const response: UserSecurityResponse = await mutateAsync(payload);
+
 		console.log('Logi: ', response);
+
 		LocalStorageSession.saveAuthorization(response);
 	};
 
-	// formulario
 	return (
 		<Row className="justify-content-center align-items-center vh-100">
 			<Col xs={12} sm={8} md={7} lg={6} xl={5} xxl={4}>
@@ -57,7 +55,7 @@ const index = (): JSX.Element => {
 									value={formik.values.email}
 									onChange={formik.handleChange}
 								/>
-								{Boolean(formik.touched.email ?? false) && formik.errors.email != null && (
+								{(formik.touched.email ?? false) && formik.errors.email != null && (
 									<small className="text-danger">{formik.errors.email}</small>
 								)}
 							</Form.Group>
@@ -69,7 +67,7 @@ const index = (): JSX.Element => {
 									value={formik.values.password}
 									onChange={formik.handleChange}
 								/>
-								{Boolean(formik.touched.password ?? false) && formik.errors.password != null && (
+								{(formik.touched.password ?? false) && formik.errors.password != null && (
 									<small className="text-danger">{formik.errors.password}</small>
 								)}
 							</Form.Group>

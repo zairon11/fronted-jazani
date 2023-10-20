@@ -16,10 +16,10 @@ const Menu: FC = () => {
 						<Nav.Link href="/">Home</Nav.Link>
 						<NavDropdown title="General" id="basic-nav-dropdown">
 							<Link className="dropdown-item" to="mineral-types">
-								Tipos de personas
+								Tipo de minerales
 							</Link>
 							<Link className="dropdown-item" to="minerals">
-								Personas
+								Minerales
 							</Link>
 							<NavDropdown.Divider />
 							<NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>

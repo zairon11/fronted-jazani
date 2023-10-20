@@ -1,22 +1,22 @@
 import { useState, useEffect } from 'react';
 import Table from 'react-bootstrap/Table';
 
-import { PersonaTypeRepository } from '../../infrastructure';
-import { type PersonaTypeResponse } from '../../domain';
+import { MineralTypeRepository } from '../../infrastructure';
+import { type MineralTypeResponse } from '../../domain';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Badge from 'react-bootstrap/Badge';
 import { Card } from 'react-bootstrap';
 
 const index = (): JSX.Element => {
-	const [mineralTypes, mineralTypesSet] = useState<PersonaTypeResponse[]>([]);
+	const [mineralTypes, mineralTypesSet] = useState<MineralTypeResponse[]>([]);
 
 	useEffect(() => {
 		void loadMineralTypes();
 	}, []);
 
 	const loadMineralTypes = async (): Promise<void> => {
-		const response = await PersonaTypeRepository.findAll();
+		const response = await MineralTypeRepository.findAll();
 
 		mineralTypesSet(response);
 		console.log('response: ', response);
@@ -27,7 +27,7 @@ const index = (): JSX.Element => {
 			<Row className="pt-2">
 				<Col xs={12}>
 					<Card>
-						<Card.Header>Listado de Tipo de personas</Card.Header>
+						<Card.Header>Listado de Tipo de Minerales</Card.Header>
 						<Card.Body>
 							<Table striped bordered hover>
 								<thead>
